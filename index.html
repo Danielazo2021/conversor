@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Conversión de Monedas</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tippy.js@6/dist/tippy.css">
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Columna izquierda: Conversor -->
+        <div class="converter-column">
+            <div class="converter-container">
+                <h1>Conversor de Monedas</h1>
+
+                <div class="form-group">
+                    <label for="cantidad">Cantidad:</label>
+                    <input type="number" 
+                           id="cantidad" 
+                           placeholder="Ingrese cantidad" 
+                           step="any"
+                           data-tippy-content="Ingrese la cantidad que desea convertir" />
+                </div>
+
+                <div class="currency-container">
+                    <div class="form-group">
+                        <label for="monedaOrigen">Moneda Origen <img id="flagOrigen" class="flag" src="" alt="Bandera" />:</label>
+                        <div class="select-container">
+                            <input type="text" 
+                                   id="buscarOrigen" 
+                                   class="currency-search" 
+                                   placeholder="Buscar moneda..."
+                                   data-tippy-content="Busque por código o nombre de la moneda" />
+                            <select id="monedaOrigen" 
+                                    class="currency-select"
+                                    data-tippy-content="Seleccione la moneda desde la cual desea convertir"></select>
+                        </div>
+                    </div>
+
+                    <div class="swap-button" 
+                         id="swapCurrencies" 
+                         title="Intercambiar monedas"
+                         data-tippy-content="Intercambiar monedas de origen y destino">
+                        ⇄
+                    </div>
+
+                    <div class="form-group">
+                        <label for="monedaDestino">Moneda Destino <img id="flagDestino" class="flag" src="" alt="Bandera" />:</label>
+                        <div class="select-container">
+                            <input type="text" 
+                                   id="buscarDestino" 
+                                   class="currency-search" 
+                                   placeholder="Buscar moneda..."
+                                   data-tippy-content="Busque por código o nombre de la moneda" />
+                            <select id="monedaDestino" 
+                                    class="currency-select"
+                                    data-tippy-content="Seleccione la moneda a la cual desea convertir"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="convertir" data-tippy-content="Realizar la conversión">Convertir</button>
+
+                <div class="resultado" data-tippy-content="Resultado de la última conversión">
+                    <div id="resultadoTexto">Resultado: </div>
+                    <img id="flagDestinoFinal" class="flag" src="" alt="Bandera" />
+                </div>
+
+                <div class="last-update" data-tippy-content="Momento de la última actualización de tasas">
+                    Última actualización: <span id="lastUpdate">-</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna derecha: Gráfico e Historial -->
+        <div class="stats-column">
+            <!-- Sección del gráfico -->
+            <div class="chart-section">
+                <h2>Tendencia del Tipo de Cambio</h2>
+                <div class="chart-container" data-tippy-content="Gráfico de tendencia del tipo de cambio">
+                    <canvas id="tendenciaChart"></canvas>
+                </div>
+                <div class="chart-controls">
+                    <select id="periodoTendencia" data-tippy-content="Seleccione el período de tiempo para la tendencia">
+                        <option value="24h">Últimas 24 horas</option>
+                        <option value="7d">Última semana</option>
+                        <option value="30d">Último mes</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Sección del historial -->
+            <div class="history-section">
+                <h2>Historial de Conversiones</h2>
+                <div class="history-list" 
+                     id="historialConversiones" 
+                     data-tippy-content="Últimas 10 conversiones realizadas">
+                    <!-- El historial se llenará dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loader" id="loader" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
